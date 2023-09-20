@@ -1,6 +1,6 @@
 const express = require('express');
 const routerApi = require('./routes');
-const cors = require('cors');
+// const cors = require('cors');
 
 const {
   logErrors,
@@ -9,27 +9,27 @@ const {
 } = require('./middlewares/error.haldler');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-const whiteList = ['https://localhost:8080', 'https://myapp.co'];
-const options = {
-  origin: (origin, callback) => {
-    if (whiteList.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('not allowed'));
-    }
-  },
-};
-app.use(cors(options));
+// const whiteList = ['https://localhost:8080', 'https://myapp.co'];
+// const options = {
+//   origin: (origin, callback) => {
+//     if (whiteList.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('not allowed'));
+//     }
+//   },
+// };
+// app.use(cors(options));
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Hi from my express server');
 });
 
-app.get('/new-route', (req, res) => {
+app.get('/api/new-route', (req, res) => {
   res.send(`Hi I'm the new endpoint`);
 });
 
